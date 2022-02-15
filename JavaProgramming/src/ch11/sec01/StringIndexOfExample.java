@@ -14,6 +14,15 @@ public class StringIndexOfExample {
 		else {
 			System.out.println("자바와 관련 없는 책이군요.");
 		}
+		
+		
+		if(subject.contains("자바")) {
+			System.out.println("자바와 관련된 책이군요.");
+		}
+		else {
+			System.out.println("자바와 관련 없는 책이군요.");
+		}
+		
 
 	}
 
