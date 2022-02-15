@@ -2,7 +2,7 @@ package assignment;
 
 import java.util.Scanner;
 
-public class CodingTest_01_an {
+public class CodingTest_01_s {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -27,13 +27,13 @@ public class CodingTest_01_an {
 		
 		System.out.print("두 번째 줄 장애물 > ");
 		barrel_02 = scan.nextLine().split("");
-	
 		
 		for(int i = 0; i<scores.length; i++) {
 			if(barrel_01[i].equals("O") && barrel_02[i].equals("O")) {
 				result += Integer.parseInt(scores[i]);
 			}
 		}
+		
 		System.out.println("총점은" + result +"이다.");
 	}
 

@@ -1,7 +1,7 @@
 package assignment;
 import java.util.Scanner;
 
-public class CodingTest_01 {
+public class CodingTest_01_f {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
