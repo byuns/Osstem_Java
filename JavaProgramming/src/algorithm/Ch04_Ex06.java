@@ -1,7 +1,7 @@
 package algorithm;
 import java.util.Scanner;
 
-public class Ex06 {
+public class Ch04_Ex06 {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
