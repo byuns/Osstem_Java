@@ -3,40 +3,26 @@ import java.util.Scanner;
 
 public class CodingTest_01_f {
 
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		int apple_Count;
-		int result = 0;
-		int[] scores = null;
-		String[] barrel_01 = null;
-		String[] barrel_02 = null;
+	public static void main(String[] args) {	
+		Scanner scanner = new Scanner(System.in);
 		
-		System.out.print("사과의 개수 > ");
-		apple_Count = Integer.parseInt(scan.nextLine());
+		int target = Integer.parseInt(scanner.nextLine()); // 과녁 개수
+		int sum = 0; // 총점
 		
-		scores = new int[apple_Count];
-		barrel_01 = new String[apple_Count];
-		barrel_02 = new String[apple_Count];
+		String[] inputScores = scanner.nextLine().split(" "); // 점수
+		String[] target1 = scanner.nextLine().split(""); // 과녁
+		String[] target2 = scanner.nextLine().split(""); // 과녁
 		
-		for(int i = 0; i < scores.length; i++) {
-			System.out.print((i+1)+"번 사과 점수 > ");
-			scores[i] = Integer.parseInt(scan.nextLine());
-		}
-		for(int i = 0; i < barrel_01.length; i++) {
-			System.out.print("첫 번째 줄" + (i+1)+ "번 장애물 > ");
-			barrel_01[i] = scan.nextLine();
-		}
-		for(int i = 0; i < barrel_02.length; i++) {
-			System.out.print("두 번째 줄 " + (i+1) + "번 장애물 > ");
-			barrel_02[i] = scan.nextLine();
-		}
-		
-		for(int i = 0; i<scores.length; i++) {
-			if(barrel_01[i].equals("O") && barrel_02[i].equals("O")) {
-				result += scores[i];
+		for(int i=0; i<target; i++) {
+			// 1번, 2번 과녁이 같고, 과녁이 O
+			if(target1[i].equals(target2[i]) && target1[i].equals("O")) {
+				sum += Integer.parseInt(inputScores[i]); // sum에 점수를 더한다
 			}
 		}
-		System.out.println("총점은" + result +"이다.");
+		// 출력
+		System.out.println("총 점수");
+		System.out.println();
+		System.out.println(sum);
 
 	}
 

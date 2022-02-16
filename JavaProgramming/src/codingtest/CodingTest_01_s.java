@@ -6,7 +6,7 @@ public class CodingTest_01_s {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		int apple_Count;
+		int apple_Count; 
 		int result = 0;
 		String[] scores = null;
 		String[] barrel_01 = null;
