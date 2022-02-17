@@ -1,6 +1,6 @@
 package ch06.sec04.exam04;
 
-public class Calculator {
+public class Calculator { // 클래스 내부에서 메소드 호출
 
 	int plus(int x, int y) {
 		int result = x + y;
