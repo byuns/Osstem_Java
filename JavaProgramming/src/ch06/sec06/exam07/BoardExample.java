@@ -13,7 +13,6 @@ public class BoardExample {
 		board.setOpen(true);
 		board.setComment(comment) ;
 		
-		
 		//값 출력
 		System.out.println(board.getNo());
 		System.out.println(board.getTitle());
