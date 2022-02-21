@@ -10,6 +10,7 @@ package ch07.sec02.exam01;
 	
 	public class PromtionExample {
 		public static void main(String[] args) {
+			
 			B b = new B();
 			C c = new C();
 			D d = new D();
@@ -23,8 +24,8 @@ package ch07.sec02.exam01;
 			B b1 = d;
 			C c1 = e;
 			
-			B b2 = e;
-			C c2 = d;
+//			B b2 = e;
+//			C c2 = d;
 			
 
 		}
