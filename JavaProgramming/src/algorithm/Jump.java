@@ -4,12 +4,13 @@ import java.util.Scanner;
 public class Jump {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int route = 0; // 경로의 개수
-		boolean rightFlag = false;
-		boolean downFlag = false;
+		
 		
 		int length = Integer.parseInt(sc.nextLine());
 		String[][] board = new String[length][];
+		int[][] dp = new int[101][101];
+		
+		dp[0][0] = 1;
 		
 		for(int i=0; i<board.length; i++) { // 게임 판에 값 저장
 			board[i] = sc.nextLine().split(" ");
@@ -17,17 +18,24 @@ public class Jump {
 		
 		for(int i = 0; i<board.length; i++) {			
 			for(int j = 0; j < board.length; j++) {
-				if(!(Integer.parseInt(board[i][j]) > (length - (j+1)))) { // 가로 남은 칸의 수가 현재 적힌 수 보다 크다면 실행
-					rightFlag = true;
-					break;
+				if(i == board.length-1 && j == board.length-1) {
+					continue;
 				}
-				else {
-					rightFlag = false;
+				int dist = Integer.parseInt(board[i][j]);
+				int down = dist + i;
+				int right = dist + j;
+				
+				if(down < board.length) {
+					dp[down][j] += dp[i][j];
 				}
+				if(right < board.length) {
+					dp[i][right] += dp[i][j];
+				}
+
 			}
-			
-			
+
 		}
+		System.out.println(dp[length-1][length-1]);
 		
 		
 	}
