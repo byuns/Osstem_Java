@@ -2,20 +2,20 @@ package ch09.sec01.exam07;
 
 public class CheckBox {
 	
-	CheckListener checkListener;
-	static String index;
+	private CheckListener checkListener;
+	public static String index;
 	
 	CheckBox(String index){this.index = index;}
 	
-	void addCheckListener(CheckListener checkListener) {
+	public void addCheckListener(CheckListener checkListener) {
 		this.checkListener= checkListener;
 	}
 	
-	void check() {
+	public void check() {
 		checkListener.check();
 	}
 	
-	static interface CheckListener{
+	public static interface CheckListener{
 		void check();
 	}
 
