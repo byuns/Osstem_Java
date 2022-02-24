@@ -11,7 +11,10 @@ public class BoardExample {
 		System.out.println(b1.hashCode() == b2.hashCode());
 		System.out.println(b1.equals(b2));
 		System.out.println(b1.toString());
-
+		
+		long[] a = new long[1];
+		System.out.println(a[0]);
+		
 	}
 
 }
