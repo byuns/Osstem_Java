@@ -22,6 +22,7 @@ public class KeyExample {
 		*/
 		// --------------
 		HashMap<Key,String> map2 = new HashMap<>();
+		
 		Key myKey = new Key(1,"winter");
 		Key yourKey = new Key(1,"winter");
 		
