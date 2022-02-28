@@ -3,7 +3,7 @@ package ch12.sec02.exam02;
 public class StopFlagExample {
 
 	public static void main(String[] args) {
-		Thread thread = new PrintThread1();
+		PrintThread1 thread = new PrintThread1();
 		thread.start();
 		
 		try {
@@ -13,7 +13,10 @@ public class StopFlagExample {
 			e.printStackTrace();
 		}
 		
-		thread.stop();
+		thread.setStop(true);
+		
+		
+	
 	}
 
 }
