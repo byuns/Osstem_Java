@@ -12,6 +12,7 @@ public class User2 extends Thread {
 		this.setName("User2");
 		this.calculator = calculator;
 	}
+	@Override
 	public void run() {
 		calculator.setMemory(50);
 	}
