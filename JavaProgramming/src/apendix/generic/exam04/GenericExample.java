@@ -20,7 +20,6 @@ public class GenericExample {
 		
 		boolean result = box1.compare(box2);
 		System.out.println(result);
-		
 
 	}
 
