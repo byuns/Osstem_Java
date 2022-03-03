@@ -1,4 +1,4 @@
-package ch14.sec01.exam01;
+package ch14.sec01.exam02;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,13 +13,8 @@ public class WriteExample {
 			
 			OutputStream os = new FileOutputStream("C:/Temp/test1.db");
 			
-			byte a = 10;
-			byte b = 20;
-			byte c = 30;
-			
-			os.write(a);
-			os.write(b);
-			os.write(c);
+			byte[] array = {10,20,30};
+			os.write(array);
 			
 			os.flush();
 			os.close();
