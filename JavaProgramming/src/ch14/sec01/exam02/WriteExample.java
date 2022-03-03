@@ -11,7 +11,7 @@ public class WriteExample {
 		
 		try {
 			
-			OutputStream os = new FileOutputStream("C:/Temp/test1.db");
+			OutputStream os = new FileOutputStream("C:/Temp/test2.db");
 			
 			byte[] array = {10,20,30};
 			os.write(array);
