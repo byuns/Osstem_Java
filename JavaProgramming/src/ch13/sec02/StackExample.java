@@ -16,7 +16,6 @@ public class StackExample {
 			Coin coin = coinBox.pop();
 			System.out.println("꺼내온 동전 : " + coin.getValue() + "원");
 		}
-
 	}
 
 }
