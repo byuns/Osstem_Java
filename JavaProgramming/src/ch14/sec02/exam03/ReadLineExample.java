@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-public class InputStreamToReader {
+public class ReadLineExample {
 
 	public static void main(String[] args) {
 		try {
