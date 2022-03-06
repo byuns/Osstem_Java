@@ -1,6 +1,7 @@
 package ch14.verify01;
 
 import java.io.IOException;
+import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 public class BoardServiceExample {//객체 생성 및 실행
@@ -31,7 +32,7 @@ public class BoardServiceExample {//객체 생성 및 실행
 						System.out.print("선택 : ");
 
 						int selectNum = Integer.parseInt(sc.nextLine());
-						if(selectNum < 1 || selectNum > 7) { // 1~7번만 입력 가능하도록 함
+						if(selectNum < 1 || selectNum > 8) { // 1~7번만 입력 가능하도록 함
 							System.out.println("1~8번을 입력해주세요.");
 							continue;
 						}
@@ -44,12 +45,12 @@ public class BoardServiceExample {//객체 생성 및 실행
 							case 2://상세보기
 								System.out.print("상세히 볼 게시물 번호를 입력해주세요 : ");
 								int numView = Integer.parseInt(sc.nextLine());
-								boardService.view(numView);
+								boardService.view(numView, userName);
 								break;
 							case 3: // 검색
-//								System.out.print("조회할 글쓴이를 입력해주세요 : ");
-//								String searchWriter = sc.nextLine();
-//								boardService.lookup(searchWriter);
+								System.out.print("조회할 글쓴이를 입력해주세요 : ");
+								String searchWriter = sc.nextLine();
+								boardService.lookup(searchWriter);
 								break;
 							case 4: // 종료
 								flag = false;
@@ -88,10 +89,10 @@ public class BoardServiceExample {//객체 생성 및 실행
 									}
 								}
 								break;
-							case 8: // 회원가입
-								//??코드 이해가 안됨..
+							case 8: 
+								System.out.println("[ 회원 가입 ]");
+								userService.signUp();
 								break;
-	
 							}
 					}
 				}catch(NumberFormatException e) {

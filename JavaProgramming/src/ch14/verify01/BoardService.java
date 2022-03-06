@@ -1,8 +1,13 @@
 package ch14.verify01;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -74,19 +79,70 @@ public class BoardService {//기능들을 제공해주는 객체
 		save();
 	}
 	
-	public void view(int numView) throws Exception { // 게시글 상세 확인 메소드
+	public void view(int numView, String user) throws Exception { // 게시글 상세 확인 메소드
 		flag = false;
 		for(Board board : boardList) {
 			if(board.getBno() == numView) {
-				System.out.println("번호 : " + board.getBno() + 
-						"  제목 : "  + board.getTitle() +
-						"  글쓴이 : "+ board.getWriter());
-				System.out.println("작성일자 : " + sdf.format(board.getDate()));
-				System.out.println("내용 : " + board.getContent());
 				flag = true;
-				break;
+				if(user == null) {
+					if(board.isOpen()) {
+						System.out.println("번호 : " + board.getBno() + 
+								"  제목 : "  + board.getTitle() +
+								"  글쓴이 : "+ board.getWriter());
+						System.out.println("작성일자 : " + sdf.format(board.getDate()));
+						System.out.println("내용 : " + board.getContent());
+						break;
+					} else {
+						System.out.println("로그인 후 이용해주세요.");
+						break;
+					}
+				} else {
+					if(board.getWriter().equals(user)) {
+						System.out.println("번호 : " + board.getBno() + 
+								"  제목 : "  + board.getTitle() +
+								"  글쓴이 : "+ board.getWriter());
+						System.out.println("작성일자 : " + sdf.format(board.getDate()));
+						System.out.println("내용 : " + board.getContent());
+						
+						while(true) {
+							System.out.print("수정 또는 삭제 하시겠습니다? (y/n): ");
+							String select = sc.nextLine();
+							
+							if(select.equals("y")) {
+								System.out.println("------------------------------------------------------------------");
+								System.out.println("1. 수정하기 \t 2.삭제하기");
+								System.out.println("------------------------------------------------------------------");
+								System.out.print("선택: ");
+								int selNum = Integer.parseInt(sc.nextLine());
+								if (selNum == 1) {
+									modify(numView);
+									break;
+								} else if (selNum == 2) {
+									delete(numView);
+									break;
+								} 
+							} else if (select.equals("n")) {
+								System.out.println("메뉴로 돌아갑니다.");
+								//flag = true;
+								break;
+							}
+							else {
+								System.out.println("\'y\'또는 \'n\'을 입력해주세요");
+							}
+						}
+							break;
+					} else {
+						System.out.println("번호 : " + board.getBno() + 
+								"  제목 : "  + board.getTitle() +
+								"  글쓴이 : "+ board.getWriter());
+						System.out.println("작성일자 : " + sdf.format(board.getDate()));
+						System.out.println("내용 : " + board.getContent());
+						break;
+					}
+				}
 			}
 		}
+		
 		if(flag != true) {
 			System.out.println("해당 게시글이 존재하지 않습니다.");
 		}
@@ -145,14 +201,18 @@ public class BoardService {//기능들을 제공해주는 객체
 	
 	public void delete(int numDel) throws Exception{ // 삭제 메소드
 		flag = false;//해당 게시글이 존재하는지 판단하는 플래그
-		for(int i = 0; i<boardList.size(); i++) {
-			if(boardList.get(i).getBno() == numDel) { // 넘겨 받은 게시물 번호와 객체 리스트 안에 있는 Bno 값이 일치하면 삭제
-				boardList.remove(i);
-				System.out.println(numDel + "번 게시물이 삭제되었습니다.");
-				flag = true;
-				break;
+		try {
+			for(int i = 0; i<boardList.size(); i++) {
+				if(boardList.get(i).getBno() == numDel) { // 넘겨 받은 게시물 번호와 객체 리스트 안에 있는 Bno 값이 일치하면 삭제
+					boardList.remove(i);
+					System.out.println(numDel + "번 게시물이 삭제되었습니다.");
+					flag = true;
+					break;
+				}
 			}
-		}
+		} catch(ConcurrentModificationException e) {
+            System.out.println();
+    }
 		if(flag != true) { // 일치하지 않을 경우 해당 번호의 게시물은 존재하지 않음
 			System.out.println("해당 게시물은 존재하지 않습니다.");
 		}
@@ -184,7 +244,7 @@ public class BoardService {//기능들을 제공해주는 객체
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				List<Board> list = (List<Board>) ois.readObject();
 				for(Board board : list) {
-					boardList.add(new Board(board.getBno(),board.getTitle(),board.getContent(),board.getWriter(),board.getDate(),board.isOpen()));
+					boardList.add(new Board(board.getBno(),board.getTitle(),board.getWriter(),board.getContent(),board.getDate(),board.isOpen()));
 					bno = board.getBno();
 				}
 				ois.close();
@@ -197,4 +257,3 @@ public class BoardService {//기능들을 제공해주는 객체
 
 	}
 }
-
