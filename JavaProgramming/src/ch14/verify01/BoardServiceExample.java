@@ -1,7 +1,5 @@
 package ch14.verify01;
-
 import java.io.IOException;
-import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
 public class BoardServiceExample {//객체 생성 및 실행
@@ -18,7 +16,6 @@ public class BoardServiceExample {//객체 생성 및 실행
 			
 			while(flag) {//게시판 시작
 				try {
-          
 						if(userName != null){ // 로그인 시
 					      System.out.println("------------------------------------------------------------------");
 					      System.out.println("1.목록보기 | 2.상세보기 | 3.검색 | 4.종료 | 5.작성하기 | 6.로그아웃 ");
@@ -32,7 +29,7 @@ public class BoardServiceExample {//객체 생성 및 실행
 						System.out.print("선택 : ");
 
 						int selectNum = Integer.parseInt(sc.nextLine());
-						if(selectNum < 1 || selectNum > 8) { // 1~7번만 입력 가능하도록 함
+						if(selectNum < 1 || selectNum > 8) { // 1~8번만 입력 가능하도록 함
 							System.out.println("1~8번을 입력해주세요.");
 							continue;
 						}
@@ -48,10 +45,11 @@ public class BoardServiceExample {//객체 생성 및 실행
 								boardService.view(numView, userName);
 								break;
 							case 3: // 검색
-								System.out.print("조회할 글쓴이를 입력해주세요 : ");
-								String searchWriter = sc.nextLine();
-								boardService.lookup(searchWriter);
+								System.out.print("검색할 제목을 입력해주세요 : ");
+								String search= sc.nextLine();
+								boardService.lookup(search, userName);
 								break;
+								
 							case 4: // 종료
 								flag = false;
 								System.out.println("게시판이 종료됩니다.");
@@ -90,9 +88,14 @@ public class BoardServiceExample {//객체 생성 및 실행
 								}
 								break;
 							case 8: 
-								System.out.println("[ 회원 가입 ]");
-								userService.signUp();
-								break;
+								if(userName != null) {
+								  System.out.println("로그인 상태입니다.");
+								  break;
+								}else{
+									System.out.println("[ 회원 가입 ]");
+									userService.signUp();
+									break;
+								}
 							}
 					}
 				}catch(NumberFormatException e) {

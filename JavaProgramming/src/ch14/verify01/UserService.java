@@ -12,11 +12,8 @@ public class UserService {
 	public void signUp() throws Exception {
 		String newId = null; // 새로운 아이디를 입력받기 위한 변수
 		String newPwd = null; // 새로운 비밀번호를 입력받기 위한 변수
-
 		User newUser = null; // 객체를 저장하기 위한 User 타입의 변수 설정
-		
 		boolean flag = false;
-		
 		String[] tmpStr  = null;
 		
 		boolean idChk = chkId();
@@ -42,7 +39,7 @@ public class UserService {
 				if (flag) {
 					System.out.println("존재하는 아이디입니다.");
 					break;
-				} else if (newId.replace(" ", "").equals("")) {
+				} else if (newId.replace(" ", "").equals("")) {//공백 입력 시
 					System.out.println("아이디를 입력해 주세요.");
 				} else {
 					System.out.print("비밀번호 : ");
@@ -146,17 +143,3 @@ public class UserService {
 		userList = (List<User>) ois.readObject();
 	}
 }
-
-
-//	      while(true){
-//	        System.out.print("[ 로그인 ] (회원 가입 y) ");
-//	        String signUp = sc.nextLine();
-//	        if(signUp.equals("y")){
-//	          System.out.println("[ 회원가입 ]");
-//	          userService.signUp();
-//	          System.out.println("[ 로그인 ]");
-//	          login = userService.loginUser();          
-//	        } else{
-//	          login = userService.loginUser();
-//	        }
-//	      }

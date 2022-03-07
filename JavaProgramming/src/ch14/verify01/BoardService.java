@@ -1,16 +1,11 @@
 package ch14.verify01;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ConcurrentModificationException;
 
 public class BoardService {//기능들을 제공해주는 객체
 	private int bno = 0; // 게시글 번호
@@ -61,10 +56,10 @@ public class BoardService {//기능들을 제공해주는 객체
 		while(true) {
 			System.out.print("공개여부(y/n) : ");
 			String select = sc.nextLine();
-			if(select.equals("y")) {
+			if(select.toLowerCase().equals("y")) {
 				open = true;
 				break;
-			}else if(select.equals("n")) {
+			}else if(select.toLowerCase().equals("n")) {
 				open = false;
 				break;
 			}else {
@@ -108,7 +103,7 @@ public class BoardService {//기능들을 제공해주는 객체
 							System.out.print("수정 또는 삭제 하시겠습니다? (y/n): ");
 							String select = sc.nextLine();
 							
-							if(select.equals("y")) {
+							if(select.toLowerCase().equals("y")) {
 								System.out.println("------------------------------------------------------------------");
 								System.out.println("1. 수정하기 \t 2.삭제하기");
 								System.out.println("------------------------------------------------------------------");
@@ -121,16 +116,18 @@ public class BoardService {//기능들을 제공해주는 객체
 									delete(numView);
 									break;
 								} 
-							} else if (select.equals("n")) {
+							} else if (select.toLowerCase().equals("n")) {
 								System.out.println("메뉴로 돌아갑니다.");
-								//flag = true;
+								break;
+							} else if (select.replace(" ", "").equals("")) {
+								System.out.println("아무것도 선택하지 않으셨습니다. 메뉴로 돌아갑니다.");
 								break;
 							}
 							else {
-								System.out.println("\'y\'또는 \'n\'을 입력해주세요");
+								System.out.println("올바르지 않은 입력입니다. \'y\'또는 \'n\'을 입력해주세요");
 							}
 						}
-							break;
+						break;
 					} else {
 						System.out.println("번호 : " + board.getBno() + 
 								"  제목 : "  + board.getTitle() +
@@ -147,57 +144,66 @@ public class BoardService {//기능들을 제공해주는 객체
 			System.out.println("해당 게시글이 존재하지 않습니다.");
 		}
 	}
-	
-	public void lookup(String writer) { // 작성자로 게시글 조회
+
+	public void lookup(String title, String user) { // 제목으로 게시글 조회
 		
 		flag = false;  //해당 게시글이 존재하는지 판단하는 플래그
 		System.out.println("번호	제목	글쓴이		작성일자\n");
 		for(int i = boardList.size()-1; i>=0; i--) {//내림차순 정렬
-			if(boardList.get(i).getWriter().equals(writer)) {
+			if(boardList.get(i).getTitle().equals(title)) {
 				flag = true;
-			System.out.println(boardList.get(i).getBno() + "   " + boardList.get(i).getTitle() + "   " + boardList.get(i).getWriter() 
-			+ "   " +sdf.format(boardList.get(i).getDate()) );
+				if(user == null) { //비회원일 경우 유저공개 안보이게 처리
+					if(boardList.get(i).isOpen()) {//true는 공개
+						System.out.println(boardList.get(i).getBno() + "   " + boardList.get(i).getTitle() + "   " + boardList.get(i).getWriter() 
+								+ "   " +sdf.format(boardList.get(i).getDate()) );
+					}else{
+						System.out.println(boardList.get(i).getBno() + "   유저공개제목    유저공개글쓴이   " +sdf.format(boardList.get(i).getDate()) );
+					}
+				}else {//회원일경우 모두 공개
+					System.out.println(boardList.get(i).getBno() + "   " + boardList.get(i).getTitle() + "   " + boardList.get(i).getWriter() 
+							+ "   " +sdf.format(boardList.get(i).getDate()) );
+				}
 			}
 		}
 		if(flag != true) {
-			System.out.println("해당 글쓴이의 게시글이 존재하지 않습니다.");
+			System.out.println("해당 게시글이 존재하지 않습니다.");
 		}
 	}
 	
 	public void modify(int numMod) throws Exception { // 수정 메소드
-		flag = false; //해당 게시글이 존재하는지 판단하는 플래그
-		for(Board board : boardList) {
-			if(board.getBno() == numMod) { // 받아온 게시글 번호와 저장된 번호와 같을 때 실행
-					System.out.println("수정을 원하지 않으면 공백을 입력해주세요.");
-					System.out.print("제목 : ");
-					String title = sc.nextLine();
-					System.out.print("내용 : ");
-					String content = sc.nextLine();
-					String modify = sdf.format(board.getDate()); // 수정 시각을 내용에 함께 추가한다.
-				
-					// 수정을 원치 않는 부분은 공백처리
-					if(title.replace(" ", "").equals("")) {
-						if(!content.replace(" ", "").equals("")) { // 내용만 수정
-							board.setContent(content + "\n(" + modify + "에 내용만 수정됨)");
-						}
-					}else {
-						if(!content.replace(" ", "").equals("")) {// 제목 및 내용 모두 수정
-							board.setTitle(title);
-							board.setContent(content+"\n(" + modify + "에 제목 및 내용이 모두 수정됨)");
-						}else {// 제목만 수정
-							board.setTitle(title);
-							board.setContent(board.getContent() + "\n(" + modify + "에 제목만 수정됨)" );
-						}
-					}
-					flag = true;
-					break;
-			}
-		}
-		if(flag != true) {
-			System.out.println("해당 게시물은 존재하지 않습니다.");
-		}
-		save();
-	}
+	      flag = false; //해당 게시글이 존재하는지 판단하는 플래그
+	      for(Board board : boardList) {
+	         if(board.getBno() == numMod) { // 받아온 게시글 번호와 저장된 번호와 같을 때 실행
+	               System.out.println("수정을 원하지 않으면 공백을 입력해주세요.");
+	               System.out.print("제목 : ");
+	               String title = sc.nextLine();
+	               System.out.print("내용 : ");
+	               String content = sc.nextLine();
+	               String modify = sdf.format(new Date()); // 수정 시각을 내용에 함께 추가한다.
+	            
+	               // 수정을 원치 않는 부분은 공백처리
+	               if(title.replace(" ", "").equals("")) {
+	                  if(!content.replace(" ", "").equals("")) { // 제목은 수정 하지 않고 내용만 수정
+	                     board.setContent(content + "\n(" + modify + "에 내용만 수정됨)");
+	                  }
+	               }else {
+	                  if(!content.replace(" ", "").equals("")) {// 제목 및 내용 모두 수정
+	                     board.setTitle(title);
+	                     board.setContent(content+"\n(" + modify + "에 제목 및 내용이 모두 수정됨)");
+	                  }else {// 제목만 수정
+	                     board.setTitle(title);
+	                     board.setContent(board.getContent() + "\n(" + modify + "에 제목만 수정됨)" );
+	                  }
+	               }
+	               flag = true;
+	               break;
+	         }
+	      }
+	      if(flag != true) {
+	         System.out.println("해당 게시물은 존재하지 않습니다.");
+	      }
+	      save();
+	  }
 	
 	public void delete(int numDel) throws Exception{ // 삭제 메소드
 		flag = false;//해당 게시글이 존재하는지 판단하는 플래그
@@ -238,7 +244,10 @@ public class BoardService {//기능들을 제공해주는 객체
 			File file = new File("C:/Temp/project/board.db");
 			
 			if(file.exists() == false) {
+        File files = new File("C:/Temp/project");
+				files.mkdirs();
 				file.createNewFile();
+        save();
 			}else {
 				FileInputStream fis = new FileInputStream("C:/Temp/project/board.db");
 				ObjectInputStream ois = new ObjectInputStream(fis);
@@ -257,3 +266,4 @@ public class BoardService {//기능들을 제공해주는 객체
 
 	}
 }
+
