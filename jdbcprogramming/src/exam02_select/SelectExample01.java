@@ -11,10 +11,11 @@ import java.util.Date;
 public class SelectExample01 {
 
 	public static void main(String[] args) {
+		Connection conn = null;
 		try {
 			//연결하기
 			Class.forName("oracle.jdbc.OracleDriver");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","hr","kosa12345");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","hr","kosa12345");
 			System.out.println("연결 성공");
 			//실행해야할 SQL 작성
 			String sql = "Select employee_id, email, salary, hire_date From employees";
@@ -34,13 +35,20 @@ public class SelectExample01 {
 			//위에서 사용한 메모리 해제
 			rs.close();
 			pstmt.close();
-			conn.close();
-			System.out.println("연결 끊김");
+			
+			
 			
 			}catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			}catch(SQLException e) {
 				e.printStackTrace();
+			}finally {
+				//연결 끊기
+				try {
+					conn.close();
+					System.out.println("연결 끊김");
+				} catch (SQLException e) {
+				}
 			}
 		
 	}
