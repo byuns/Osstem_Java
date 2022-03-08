@@ -18,7 +18,7 @@ public class SelectExample01 {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","hr","kosa12345");
 			System.out.println("연결 성공");
 			//실행해야할 SQL 작성
-			String sql = "Select employee_id, email, salary, hire_date From employees";
+			String sql = "Select employee_id, email, salary, hire_date From employees where employee_id = 100";
 			// SQL를 실행할 PrepareStatement 얻기
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			// SQL을 실행해서 결과 얻기
@@ -35,8 +35,6 @@ public class SelectExample01 {
 			//위에서 사용한 메모리 해제
 			rs.close();
 			pstmt.close();
-			
-			
 			
 			}catch(ClassNotFoundException e) {
 				e.printStackTrace();

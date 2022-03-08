@@ -8,6 +8,10 @@ import java.util.Set;
 public class HashMapExample {
 
 	public static void main(String[] args) {
+		
+		String[] a = {"1"};
+		
+		
 		Map<String, Integer> map = new HashMap<>();
 		
 		map.put("신용권", 85);
