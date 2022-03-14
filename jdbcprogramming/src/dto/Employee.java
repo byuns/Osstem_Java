@@ -1,8 +1,9 @@
-package exam02_select;
+package dto;
 
 import java.util.Date;
 
 public class Employee {
+	
 	private int employeeId;
 	private String firstName;
 	private String lastName;
@@ -14,7 +15,28 @@ public class Employee {
 	private double commissionPct;
 	private int managerId;
 	private int departmentId;
+	private Department department;
+	private Location location;
+	private Country country;
 	
+	public Department getDepartment() {
+		return department;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	public Country getCountry() {
+		return country;
+	}
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -81,4 +103,5 @@ public class Employee {
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
 	}
+
 }

@@ -19,7 +19,6 @@ public class SelectExample09 {
 				@Override
 				public void run() {
 					printSalary();
-		
 				}
 			};
 			threads[i].start();

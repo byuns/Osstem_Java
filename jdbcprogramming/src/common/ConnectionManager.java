@@ -40,7 +40,7 @@ public class ConnectionManager {
 	public static Connection getConnection02() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","hr","kosa12345");
-		System.out.println("연결 성공");
+//		System.out.println("연결 성공");
 		
 		return con;
 

@@ -19,6 +19,7 @@ public class SelectExample06 {
 		String email = sc.nextLine();
 		System.out.print("비밀번호 : ");
 		String password = sc.nextLine();
+
 		
 		//로그인 처리
 		String result = login(email,password);
