@@ -15,7 +15,6 @@ public class ProgrammersHash3 {
 		}
 		for(String key : map.keySet()) {
 			answer *= map.get(key)+1;
-			
 		}
 		answer--;
 		System.out.println(answer);

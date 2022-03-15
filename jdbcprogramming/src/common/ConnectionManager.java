@@ -33,7 +33,6 @@ public class ConnectionManager {
 		
 		Connection conn = basicDataSource.getConnection();
 
-		
 		return conn; 
 	
 	}
@@ -44,6 +43,5 @@ public class ConnectionManager {
 		
 		return con;
 
-	
 	}
 }

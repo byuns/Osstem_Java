@@ -67,29 +67,26 @@ public class SelectExample12 {
 			if(select.equals("d") || select.equals("D")) {
 				selectDetail();
 			}else if(select.equals("m") || select.equals("M")) {
-				selectPageMenu();
+				System.out.println("선택 : ");
+				select = scanner.nextLine();
+				if(select.equals("f") || select.equals("F")) {
+					getFirstPage();
+				} else if(select.equals("p") || select.equals("P")){
+					getPrevGroup();
+				} else if(select.equals("n") || select.equals("N")){
+					getNextGroup();
+				} else if(select.equals("l") || select.equals("L")){
+					getLast();
+				} else {
+					getPage(Integer.parseInt(select));
+				}
 			}else {
 				System.out.println("올바르게 입력해주세요.");
 			}
 		}
 	}
-	public void selectPageMenu() {
 	
-		
-		System.out.println("선택 : ");
-		String select = scanner.nextLine();
-		if(select.equals("f") || select.equals("F")) {
-			getFirstPage();
-		} else if(select.equals("p") || select.equals("P")){
-			getPrevGroup();
-		} else if(select.equals("n") || select.equals("N")){
-			getNextGroup();
-		} else if(select.equals("l") || select.equals("L")){
-			getLast();
-		} else {
-			getPage(Integer.parseInt(select));
-		}
-	}
+	
 	private void selectDetail() {
 		System.out.println("메뉴: 1. 부서 정보 |  2. 근무 지역 | 3. 분석 | 4. 종료");
 		Scanner sc = new Scanner(System.in);
@@ -98,14 +95,14 @@ public class SelectExample12 {
 		
 		select(num);
 	}
-	public  void select(int num){
+	
+	private void select(int num){
 		Connection conn = null;
 		List<Employee> list = new ArrayList();
 		int epi;
 		Scanner sc = new Scanner(System.in);
 		
 		Pager detailPager = new Pager(10, 5, getTotalRowsDetail(), 1);
-		
 		
 		try {
 			conn = ConnectionManager.getConnection01();
@@ -151,6 +148,7 @@ public class SelectExample12 {
 					System.out.println("이전 페이지로 가기 위해 아무 키나 눌러주세요.");
 					String tmp1 = sc.nextLine();
 					break;
+					
 				case 2:
 					
 					System.out.print("사번 : ");
@@ -192,6 +190,7 @@ public class SelectExample12 {
 					System.out.println("이전 페이지로 가기 위해 아무 키나 눌러주세요.");
 					String tmp2 = sc.nextLine();
 					break;
+					
 				case 3:
 					boolean run = true;
 					while(run) {
@@ -251,7 +250,7 @@ public class SelectExample12 {
 						System.out.println("선택 : ");
 						String select = sc.nextLine();
 						if(select.equals("f") || select.equals("F")) {
-							detailPager = new Pager(10, 5, getTotalRows(), 1);
+							detailPager = new Pager(10, 5, getTotalRowsDetail(), 1);
 						} else if(select.equals("p") || select.equals("P")){
 							detailPager = new Pager(10, 5, getTotalRowsDetail(), detailPager.getStartPageNo() - 1);
 						} else if(select.equals("n") || select.equals("N")){
@@ -293,7 +292,7 @@ public class SelectExample12 {
 			Connection conn = null;		
 		
 		try {
-			conn = ConnectionManager.getConnection02();
+			conn = ConnectionManager.getConnection01();
 			
 			String sql = "select count(*)from employees";
 			        
@@ -321,7 +320,7 @@ public class SelectExample12 {
 			Connection conn = null;		
 		
 		try {
-			conn = ConnectionManager.getConnection02();
+			conn = ConnectionManager.getConnection01();
 			
 			String sql = "select count(*)\r\n"
 					+ "from (\r\n"
@@ -348,16 +347,13 @@ public class SelectExample12 {
 	}
 	
 	
-	
-	
-	
 	private List<Employee> list() {
 		List<Employee> result = new ArrayList<>();
 
 		Connection conn = null;		
 		
 		try {
-			conn = ConnectionManager.getConnection02();
+			conn = ConnectionManager.getConnection01();
 			String sql = new StringBuilder()
 					.append("select rnum, employee_id, first_name, last_name, department_name, job_id, salary, phone_number, email ")
 					.append("from ( ")
