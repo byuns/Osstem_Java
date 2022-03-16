@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -35,7 +36,8 @@ public class InsertExample02 {
 			String sql = "insert into boards(bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata)\r\n"
 					+ "values(SEQ_BOARDS_BNO.nextval, ?,?,?,sysdate,?,?)";
 			
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+			//시퀀스가 적용된 컬럼을 가져오도록 컬럼명을 추가
+			PreparedStatement pstmt = conn.prepareStatement(sql, new String[] {"bno"});
 			pstmt.setString(1, board.getBtitle());
 			pstmt.setString(2, board.getBcontent());
 			pstmt.setString(3, board.getBwriter());
@@ -52,7 +54,13 @@ public class InsertExample02 {
 			}
 			int rows = pstmt.executeUpdate();
 			
-			
+			//시퀀스가 적용된 컬럼 값 얻기
+			ResultSet rs = pstmt.getGeneratedKeys(); // "bno"를 가져옴
+			if(rs.next()) {
+				int bno = rs.getInt(1);
+				System.out.println("저장된 bno : " + bno);
+			}
+			rs.close();
 			pstmt.close();
 			
 		}catch(SQLException e) {
