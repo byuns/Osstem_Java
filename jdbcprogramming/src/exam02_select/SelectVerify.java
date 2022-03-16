@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import common.ConnectionManager;
 import dto.Country;
 import dto.Department;
 import dto.Employee;
 import dto.Location;
 import dto.Region;
+import exam01_connect.ConnectionManager;
 
 public class SelectVerify {
 

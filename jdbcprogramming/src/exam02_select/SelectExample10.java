@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import common.ConnectionManager;
 import dto.Employee;
+import exam01_connect.ConnectionManager;
 
 public class SelectExample10 {
 

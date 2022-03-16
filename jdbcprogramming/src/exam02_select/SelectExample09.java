@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import common.ConnectionManager;
+import exam01_connect.ConnectionManager;
 
 
 public class SelectExample09 {

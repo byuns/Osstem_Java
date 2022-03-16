@@ -1,4 +1,4 @@
-package common;
+package exam01_connect;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,7 +18,8 @@ public class ConnectionManager {
 			basicDataSource.setMinIdle(5);
 			basicDataSource.setDriverClassName("oracle.jdbc.OracleDriver");
 			basicDataSource.setUrl("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl");
-			basicDataSource.setUsername("hr");
+			//basicDataSource.setUsername("hr");
+			basicDataSource.setUsername("java");
 			basicDataSource.setPassword("kosa12345");
 		}
 		
@@ -38,7 +39,7 @@ public class ConnectionManager {
 	}
 	public static Connection getConnection02() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.OracleDriver");
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","hr","kosa12345");
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@kosa1.iptime.org:50102/orcl","java","kosa12345");
 //		System.out.println("연결 성공");
 		
 		return con;
