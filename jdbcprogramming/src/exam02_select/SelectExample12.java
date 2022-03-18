@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import dto.Country;
-import dto.Department;
-import dto.Employee;
-import dto.Location;
-import dto.Region;
+import common.dto.Country;
+import common.dto.Department;
+import common.dto.Employee;
+import common.dto.Location;
+import common.dto.Region;
 import exam01_connect.ConnectionManager;
 
 public class SelectExample12 {

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import dto.Board;
+import common.dto.Board;
 import exam01_connect.ConnectionManager;
 
 public class InsertExample02 {
@@ -29,6 +29,7 @@ public class InsertExample02 {
 		
 		
 		Connection conn = null;
+		ConnectionManager.init();
 		try {
 			
 			conn = ConnectionManager.getConnection02();

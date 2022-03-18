@@ -10,7 +10,7 @@ public class Board implements Serializable{//하나의 보드
 	private Date date; // 게시물 작성 일자
 	private String content; // 게시물 내용
 	private String boardPassword; // 게시물 비밀번호
-  private boolean open; // 게시글 공개 비공개
+	private boolean open; // 게시글 공개 비공개
 	
 
 	public Board(int bno, String title, String writer, String content, Date date, boolean open) {

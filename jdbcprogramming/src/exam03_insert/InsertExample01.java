@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import dto.User;
+import common.dto.User;
 import exam01_connect.ConnectionManager;
 
 public class InsertExample01 {

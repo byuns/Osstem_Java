@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="boardTeamProjectnew/src"/>
+	<classpathentry kind="lib" path="__MACOSX/boardTeamProjectnew/lib/._commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="__MACOSX/boardTeamProjectnew/lib/._commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="__MACOSX/boardTeamProjectnew/lib/._commons-pool2-2.11.1.jar"/>
+	<classpathentry kind="lib" path="__MACOSX/boardTeamProjectnew/lib/._lombok.jar"/>
+	<classpathentry kind="lib" path="__MACOSX/boardTeamProjectnew/lib/._ojdbc8-19.3.0.0.jar"/>
+	<classpathentry kind="lib" path="boardTeamProjectnew/lib/commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="boardTeamProjectnew/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="boardTeamProjectnew/lib/commons-pool2-2.11.1.jar"/>
+	<classpathentry kind="lib" path="boardTeamProjectnew/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="boardTeamProjectnew/lib/ojdbc8-19.3.0.0.jar"/>
+	<classpathentry kind="output" path="boardTeamProjectnew/bin"/>
+</classpath>

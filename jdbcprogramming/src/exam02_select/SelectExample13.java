@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import dto.Board;
+import common.dto.Board;
 import exam01_connect.ConnectionManager;
 
 
@@ -63,6 +63,7 @@ public class SelectExample13 {
 						os.close();
 						System.out.println("첨부 파일을 저장했습니다.");
 					}catch(IOException e) {
+						
 						e.printStackTrace();
 					}
 				}
