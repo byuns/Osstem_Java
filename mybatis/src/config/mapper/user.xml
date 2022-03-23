@@ -2,4 +2,30 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dao.UserDao"></mapper>
+<mapper namespace="dao.UserDao">
+	<select id="selectUser" parameterType="string" resultType="dto.User">
+		select userid, username, userpassword, userage, useremail
+		from users
+		where userid = #{userid}
+	</select>
+	
+	<!-- ********************************************************************** -->
+	<resultMap id="selectUserWithBoardsResultMap" type="dto.User">
+		<result column = "userid" property="userId"/>
+		<result column = "username" property="userName"/>
+		<result column = "userpassword" property="userPassword"/>
+		<result column = "userage" property="userAge"/>
+		<result column = "useremail" property="userEmail"/>
+		<collection property="boards" ofType="dto.Board" column="userid" select="dao.BoardDao.selectByBwriter">
+			
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectUserWithBoards" parameterType="string" resultMap="selectUserWithBoardsResultMap">
+		select userid, username, userpassword, userage, useremail
+		from users
+		where userid = #{userid}
+	</select>
+	
+</mapper>
