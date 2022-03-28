@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BoardDao">
+	<!-- ***************************************************************************** -->
+	<select id="selectTotalRowCount" resultType = "int">
+		select count(*) from boards
+	</select>
+	<!-- ***************************************************************************** -->
+	<select id="selectPage" parameterType = "pager" resultType = "board">
+		select rnum, bno, btitle, bwriter, bdate, bcount
+		from(
+			select rownum as rnum, bno, btitle, bwriter, bdate, bcount
+			from (
+				select bno, btitle, bwriter, bdate, bcount
+				from boards
+				order by bno desc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rnum &gt;= #{startRowNo}
+	</select>
+	<!-- ***************************************************************************** -->
+	<select id="selectByBcount" parameterType = "pager" resultType = "board">
+		select rnum, bno, btitle, bwriter, bdate, bcount
+		from(
+			select rownum as rnum, bno, btitle, bwriter, bdate, bcount
+			from (
+				select bno, btitle, bwriter, bdate, bcount
+				from boards
+				order by bcount desc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rnum &gt;= #{startRowNo}
+	</select>
+	<!-- ***************************************************************************** -->
+	<select id="selectBoard" parameterType="int" resultType="board">
+		select bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata, bcount
+		from boards
+		where bno = #{bno}
+	</select>
+	<!-- ***************************************************************************** -->
+	
+	<insert id="insertBoard" parameterType="board">
+		<selectKey keyProperty="bno" resultType="int" order = "BEFORE">
+			select seq_boards_bno.nextval from dual
+		</selectKey>
+		
+		insert into boards (bno,btitle,bcontent,bwriter,bdate,bfilename,bfiledata,bcount)
+		values(
+			seq_boards_bno.nextval,
+			#{btitle},
+			#{bcontent},
+			#{bwriter},
+			sysdate,
+			null,
+			null,
+			0
+		)
+	</insert>
+	<!-- ***************************************************************************** -->
+	<update id="modifyBoard" parameterType="board">
+		update boards set
+			btitle = #{btitle},
+			bcontent = #{bcontent}
+		where bno = #{bno}
+	</update>
+	<!-- ***************************************************************************** -->
+	<update id ="count" parameterType="int">
+		update boards set
+			bcount = bcount+1
+		where bno = #{bno}
+	</update>
+	<!-- ***************************************************************************** -->
+	<delete id="removeBoard" parameterType="int">
+		delete from boards where bno = #{bno}
+	</delete>
+</mapper>

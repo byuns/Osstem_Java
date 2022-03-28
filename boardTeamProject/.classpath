@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/commons-pool2-2.11.1.jar"/>
 	<classpathentry kind="lib" path="lib/lombok.jar"/>
 	<classpathentry kind="lib" path="lib/ojdbc8-19.3.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/mybatis-3.5.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -20,7 +20,7 @@ public class SelectExample01 {
 			*/
 					
 			//방법 2 ----------------------------------------
-			Board board = session.selectOne("dao.BoardDao.selectOne",12);
+			Board board = session.selectOne("dao.BoardDao.selectBoard",12);
 			
 			//리턴값 출력
 			System.out.println(board);

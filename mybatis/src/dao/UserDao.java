@@ -8,4 +8,5 @@ import dto.User;
 public interface UserDao {
 	public User selectUser(String userid);
 	public User selectUserWithBoards(String userid);
+	public int insertUser(User user);
 }

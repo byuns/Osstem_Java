@@ -128,7 +128,7 @@ public class UserDao {
 			pstmt.setString(3, user.getUserPassword());
 			pstmt.setInt(4, user.getUserAge());
 			pstmt.setString(5, user.getUserEmail());
-			
+
 			//형식 비교
 			boolean regex1 = Pattern.matches(wordPattern, user.getUserId());
 			boolean regex2 = Pattern.matches(wordPattern, user.getUserName());

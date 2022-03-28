@@ -3,13 +3,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.BoardDao">
-	<select id="selectBoard" parameterType="int" resultType="dto.Board">
+	<select id="selectBoard" parameterType="int" resultType="board">
 		select bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata
 		from boards
 		where bno = #{bno}
 	</select>
 	<!-- ********************************************************************** -->
-	<select id="selectAll" resultType = "dto.Board">
+	<select id="selectAll" resultType = "board">
 		select bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata
 		from boards
 		order by bno desc
@@ -19,7 +19,7 @@
 		select count(*) from boards
 	</select>
 	<!-- ********************************************************************** -->
-	<select id="selectPage" parameterType = "dto.Pager" resultType = "dto.Board">
+	<select id="selectPage" parameterType = "pager" resultType = "board">
 		select rnum, bno, btitle, bwriter, bdate, bfilename
 		from(
 			select rownum as rnum, bno, btitle, bwriter, bdate, bfilename
@@ -34,7 +34,7 @@
 	</select>
 	<!-- ********************************************************************** -->
 	
-	<resultMap id="selectBoardWithUser1ResultMap" type = "dto.Board">
+	<resultMap id="selectBoardWithUser1ResultMap" type = "board">
 		<result column = "bno" property="bno"/>
 		<result column = "btitle" property="btitle"/>
 		<result column = "bcontent" property="bcontent"/>
@@ -42,7 +42,7 @@
 		<result column = "bdate" property="bdate"/>
 		<result column = "bfilename" property="bfilename"/>
 		<result column = "bfiledata" property="bfiledata"/>
-		<association property="user" javaType="dto.User">
+		<association property="user" javaType="user">
 			<result column = "userid" property="userId"/>
 			<result column = "username" property="userName"/>
 			<result column = "userpassword" property="userPassword"/>
@@ -59,7 +59,7 @@
 	</select>
 	<!-- ********************************************************************** -->
 	
-	<resultMap id="selectBoardWithUser2ResultMap" type = "dto.Board">
+	<resultMap id="selectBoardWithUser2ResultMap" type = "board">
 		<result column = "bno" property="bno"/>
 		<result column = "btitle" property="btitle"/>
 		<result column = "bcontent" property="bcontent"/>
@@ -67,7 +67,7 @@
 		<result column = "bdate" property="bdate"/>
 		<result column = "bfilename" property="bfilename"/>
 		<result column = "bfiledata" property="bfiledata"/>
-		<association property="user" javaType="dto.User" column="bwriter" select="dao.UserDao.selectUser"/>
+		<association property="user" javaType="user" column="bwriter" select="dao.UserDao.selectUser"/>
 	</resultMap>
 	
 	<select id="selectBoardWithUser2" parameterType="int" resultMap="selectBoardWithUser2ResultMap">
@@ -77,14 +77,18 @@
 		where bno = #{bno}
 	</select> 
 	<!-- ********************************************************************** -->
-	<select id="selectByBwriter" parameterType="string" resultType = "dto.Board">
+	<select id="selectByBwriter" parameterType="string" resultType = "board">
 		select bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata
 		from boards
 		where bwriter = #{bwriter}
 	</select>
 	
 	<!-- ********************************************************************** -->
-	<insert id="insertBoard" parameterType="dto.Board">
+	<insert id="insertBoard" parameterType="board">
+		<selectKey keyProperty="bno" resultType="int" order = "BEFORE">
+			select seq_boards_bno.nextval from dual
+		</selectKey>
+		
 		insert into boards (bno,btitle,bcontent,bwriter,bdate,bfilename,bfiledata)
 		values(
 			seq_boards_bno.nextval,
@@ -96,4 +100,17 @@
 			null
 		)
 	</insert>
+	
+	<!-- ********************************************************************** -->
+	<update id="updateBoard" parameterType="board">
+		update boards set
+			btitle = #{btitle},
+			bcontent = #{bcontent}
+		where bno = #{bno}
+	</update>
+	<!-- ********************************************************************** -->
+	<delete id="deleteBoard" parameterType="int">
+		delete from boards where bno = #{bno}
+	</delete>
+	
 </mapper>

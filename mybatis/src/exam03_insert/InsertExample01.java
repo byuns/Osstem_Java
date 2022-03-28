@@ -6,23 +6,27 @@ import org.apache.ibatis.session.SqlSession;
 
 import config.SqlSessionManager;
 import dao.BoardDao;
+import dao.UserDao;
 import dto.Board;
+import dto.User;
 
 public class InsertExample01 {
 
 	public static void main(String[] args) {
 		try(SqlSession session = SqlSessionManager.getSqlSession()){	
 			
-			Board board = new Board();
-			board.setBtitle("오늘은 흐려요");
-			board.setBcontent("공부하기 정말 좋은 날씨네요.");
-			board.setBwriter("spring");
+			User user = new User();
+			user.setUserId("user4");
+			user.setUserName("사용자4");
+			user.setUserPassword("12345");
+			user.setUserAge(25);
+			user.setUserEmail("user4@mycompany.com");
 			//방법 1 ----------------------------------------
-			//BoardDao boardDao = session.getMapper(BoardDao.class);
-			//int rows = boardDao.insertBoard(board);
+			//UserDao userDao = session.getMapper(UserDao.class);
+			//int rows = userDao.insertUser(user);
 					
 			//방법 2 ---------------------------------------
-			int rows = session.insert("dao.BoardDao.insertBoard",board);
+			int rows = session.insert("dao.UserDao.insertUser",user);
 			
 			//리턴값 출력
 			System.out.println("저장된 행 수 : " + rows);

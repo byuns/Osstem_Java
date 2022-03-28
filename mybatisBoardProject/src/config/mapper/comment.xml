@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CommentDao">
+	<select id="count" parameterType="int" resultType = "int">
+		select count(*) from comments where bno = #{bno}
+	</select>
+	<!-- ***************************************************************************** -->
+	<select id="selectALl" resultType = "comment">
+		select rnum, cno, ccontent, cdate, cwriter, bno
+		from ( select rownum as rnum, cno, ccontent, cdate, cwriter, bno
+			from ( select cno, ccontent, cdate, cwriter, bno
+				from comments
+				order by cno)
+			where rownum &lt;= #{endRowNo})
+		where rnum &gt;= #{startRowNo}
+	</select>
+	
+	<!-- ***************************************************************************** -->
+	<select id="selectByBno" resultType = "comment">
+	
+		select rnum, cno, ccontent, cdate, cwriter, bno
+		from ( select rownum as rnum, cno, ccontent, cdate, cwriter, bno
+			from ( select cno, ccontent, cdate, cwriter, bno
+				from comments
+				where bno= #{bno}
+				order by cdate desc)
+			where rownum &lt;= #{endRowNo})
+		where rnum &gt;= #{startRowNo}
+	</select>
+	
+	<!-- ***************************************************************************** -->
+	<insert id="insert" parameterType="comment">
+		<selectKey keyProperty="cno" resultType="int" order = "BEFORE">
+			select SEQ_BOARDS_CNO.nextval from dual
+		</selectKey>
+		
+		insert into comments (cno,ccontent,cwriter,cdate,bno)
+		values(
+			SEQ_BOARDS_CNO.nextval,
+			#{ccontent},
+			#{cwriter},
+			sysdate,
+			#{bno}
+		)
+	</insert>
+	<!-- ***************************************************************************** -->
+	<delete id="delete" parameterType="int">
+		delete from comments where cno=#{cno} and bno=#{bno}
+	</delete>
+</mapper>

@@ -7,6 +7,12 @@
 
 <!-- 루트 태그(엘리먼트) -->
 <configuration>
+	<!-- 타입 별명 설정 -->
+	<typeAliases>
+		<typeAlias type="dto.User" alias="user"/>
+		<typeAlias type="dto.Board" alias="board"/>
+		<typeAlias type="dto.Pager" alias="pager"/>
+	</typeAliases>
 
 	<!-- DB와 연결하기 위한 설정 -->
 	<environments default="development">

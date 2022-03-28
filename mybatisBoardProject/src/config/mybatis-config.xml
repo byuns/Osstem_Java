@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 문서 유형 선언 -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 루트 태그(엘리먼트) -->
+<configuration>
+	<!-- 타입 별명 설정 -->
+	<typeAliases>
+		<typeAlias type="dto.User" alias="user"/>
+		<typeAlias type="dto.Board" alias="board"/>
+		<typeAlias type="dto.Pager" alias="pager"/>
+		<typeAlias type="dto.Comment" alias="comment"/>
+	</typeAliases>
+
+	<!-- DB와 연결하기 위한 설정 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@kosa1.iptime.org:50103/orcl" />
+				<property name="username" value="team3" />
+				<property name="password" value="kosa12345" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!--  XML(SQL) 위치 설정 -->
+	<mappers>
+		<mapper resource="config/mapper/user.xml" />
+		<mapper resource="config/mapper/board.xml" />
+		<mapper resource="config/mapper/comment.xml" />
+	</mappers>
+</configuration>

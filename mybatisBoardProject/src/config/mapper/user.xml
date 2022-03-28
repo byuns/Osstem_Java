@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.UserDao">
+	<select id="loginVerifying" resultType="user">
+	SELECT userid, username, userpassword, userage, useremail 
+	FROM users 
+	WHERE userid=#{uId} and userpassword = #{uPassword}
+	</select>
+<!-- ***************************************************************************** -->
+	<select id="getUser" parameterType="string" resultType="user">
+		SELECT userid, username, userpassword, userage, useremail 
+		FROM users 
+		WHERE userid=#{userid}
+	</select>
+<!-- ***************************************************************************** -->
+	<select id="isIdExist" parameterType="string" resultType="user">
+		SELECT userid 
+		FROM users 
+		WHERE userid=#{userid}
+	</select>
+<!-- ***************************************************************************** -->
+	<select id="isUserExist"  resultType="user">
+		SELECT userid, userpassword 
+		FROM users 
+		WHERE userid=#{uId} and userpassword=#{uPassword}
+	</select>
+
+<!-- ***************************************************************************** -->	
+	<insert id="signin" parameterType="user">
+		INSERT INTO USERS(userid, username, userpassword, userage,useremail)
+		VALUES(#{userId},#{userName},#{userPassword},#{userAge},#{userEmail})
+	</insert>
+<!-- ***************************************************************************** -->	
+	<delete id="signout" parameterType="string">
+		DELETE 
+		FROM users 
+		WHERE userId = #{userid}
+	</delete>
+</mapper>
